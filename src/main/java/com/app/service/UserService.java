@@ -3,7 +3,6 @@ package com.app.service;
 import com.app.persistence.entity.UserEntity;
 import com.app.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +17,6 @@ import java.util.List;
 @Service
 public class UserService implements UserDetailsService {
 
-    @Autowired
     private final UserRepository userRepository;
 
 
@@ -41,8 +39,8 @@ public class UserService implements UserDetailsService {
                 .forEach(permission ->authorities.add(new SimpleGrantedAuthority(permission.getName())));
         
         // debemos de transformar el nuestro UserEntity para que spring lo reconosca
-        return new User(user.getUsername(),user.getPassword(),user.isEnable(),user.isAccountNoExpired(),
-                user.isCredentialNoExpired(),user.isAccountNotLocked(),authorities);
+        return new User(user.getUsername(),user.getPassword(),user.isEnabled(),user.isAccountNonExpired(),
+                user.isCredentialsNonExpired(),user.isAccountNonLocked(),authorities);
 
     }
 }

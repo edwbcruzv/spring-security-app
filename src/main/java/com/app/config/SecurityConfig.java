@@ -1,6 +1,7 @@
 package com.app.config;
 
 import com.app.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -26,6 +27,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+
 //    1 primero se configura el SECURITY FILTER CHAIN
 //    httpSecurity: pasa por todos los filtros
 
@@ -42,7 +44,7 @@ public class SecurityConfig {
                     // endpoints publicos
                     http.requestMatchers(HttpMethod.GET,"/auth/hello").permitAll();
                     // endpoints privados
-                    http.requestMatchers(HttpMethod.GET,"/auth/hello-secure").hasAuthority("READ");
+                    http.requestMatchers(HttpMethod.GET,"/auth/hello-secure").hasAnyRole("DEVELOPER");
                     // el resto de endpoins sin configurar se pide autenticacion
                     http.anyRequest().authenticated();
 
@@ -67,7 +69,7 @@ public class SecurityConfig {
 
         return provider;
     }
-
+    @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }

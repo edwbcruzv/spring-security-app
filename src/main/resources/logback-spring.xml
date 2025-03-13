@@ -1,0 +1,69 @@
+<configuration>
+
+    <!-- Definir el patrón del log -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"/>
+
+    <!-- Console Appender para mostrar logs en consola -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log para el módulo 1 -->
+    <appender name="MODULE1_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/module1.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/module1-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log para el módulo 2 -->
+    <appender name="MODULE2_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/module2.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/module2-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log general para el resto de la aplicación -->
+    <appender name="GENERAL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/general.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/general-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Loggers para cada módulo -->
+    <logger name="com.app.modulo1" level="debug">
+        <appender-ref ref="MODULE1_FILE"/>
+    </logger>
+
+    <logger name="com.app.modulo2" level="debug">
+        <appender-ref ref="MODULE2_FILE"/>
+    </logger>
+
+    <!-- Logger general para el resto de la aplicación -->
+    <logger name="com.app" level="info">
+        <appender-ref ref="GENERAL_FILE"/>
+    </logger>
+
+    <!-- Logger root para logs comunes (si los hay) -->
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="GENERAL_FILE"/>
+    </root>
+
+</configuration>

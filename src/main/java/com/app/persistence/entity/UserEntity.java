@@ -1,13 +1,15 @@
 package com.app.persistence.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name="users")
@@ -17,15 +19,16 @@ public class UserEntity {
     private Long id;
     @Column(unique = true)
     private String username;
+    @Column
     private String password;
-
-
-
-    private boolean isEnable;
-    private boolean accountNoExpired;
-    private boolean accountNotLocked;
-    private boolean credentialNoExpired;
-
+    @Column
+    private boolean enabled;
+    @Column
+    private boolean accountNonExpired;
+    @Column
+    private boolean accountNonLocked;
+    @Column
+    private boolean credentialsNonExpired;
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name= "user_roles" )
     private Set<RoleEntity> roles = new HashSet<>();

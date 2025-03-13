@@ -20,10 +20,11 @@ public class SpringSecurityAppApplication {
 		SpringApplication.run(SpringSecurityAppApplication.class, args);
 	}
 
+
 	// La siguiente funcion es para poblar la base con lo minimo indispensable
 	// cuando la base  de datos de todo el proyecto esta vacia.
 	// Tambien se puede iptar por un .sql con los inserts a la base de datos.
-	/*
+/*
 	@Bean
 	CommandLineRunner init(UserRepository userRepository){
 		return args -> {
@@ -61,10 +62,10 @@ public class SpringSecurityAppApplication {
 			UserEntity masterUser = UserEntity.builder()
 					.username("master")
 					.password(new BCryptPasswordEncoder().encode("secret"))
-					.isEnable(true)
-					.accountNoExpired(true)
-					.accountNotLocked(true)
-					.credentialNoExpired(true)
+					.enabled(true)
+					.accountNonExpired(true)
+					.accountNonLocked(true)
+					.credentialsNonExpired(true)
 					// le asignamos todos rolesque se creen en la base de datos con el ALL cacade ya configurado
 					.roles(Set.of(roleAdmin,roleUser,roleDev,roleInv))
 					.build();
